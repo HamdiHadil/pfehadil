@@ -1,0 +1,91 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-card-title class="m-b-0">Ouvriers</mat-card-title>
+    <button mat-flat-button color="primary" (click)="openDialog()" class="d-flex justify-content-center">
+      <mat-icon>add</mat-icon> Ajouter
+    </button>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="ouvriers" class="w-100">
+
+        <!-- secteur -->
+        <ng-container matColumnDef="sector">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+          >
+            Secteur
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ getSectorName(element.sector) }}
+          </td>
+        </ng-container>
+
+  <!--sex-->
+
+        <ng-container matColumnDef="sex">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+          >
+            sex
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.sex }}
+          </td>
+        </ng-container>
+
+      
+        <ng-container matColumnDef="nbr">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+          >
+           nombre
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.nbr }}
+          </td>
+        </ng-container>
+
+        
+<!--action-->
+        <ng-container matColumnDef="action">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+          >
+           Action
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <button mat-icon-button color="primary" class="m-r-15" (click)="update(element)">
+              <i-tabler
+                class="routeIcon"
+                name="edit"
+                matListItemIcon
+              ></i-tabler>
+            </button>
+            <button mat-icon-button color="warn" (click)="delete(element.id)">
+              <i-tabler
+                class="routeIcon"
+                name="trash"
+                matListItemIcon
+              ></i-tabler>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+
+
+  </mat-card-content>
+</mat-card>

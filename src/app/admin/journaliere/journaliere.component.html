@@ -1,0 +1,69 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-card-title class="m-b-0">irrigation journaliere</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="journaliers" class="w-100">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="sector">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Secteur
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ getSectorName(element.sector) }}
+          </td>
+        </ng-container>
+
+        <!-- Size Column -->
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Date de début
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.start }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="et">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Etat
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.et }}
+          </td>
+        </ng-container>
+
+        <!-- Nbr Column -->
+        <ng-container matColumnDef="end">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Date de fin
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.end }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ho">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Horaire
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            {{ element.ho }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+           
+          </th>
+         
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

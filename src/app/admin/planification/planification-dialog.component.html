@@ -1,0 +1,77 @@
+<!-- treatment-dialog.component.html -->
+
+<h2 mat-dialog-title class="m-b-30">Gestion des irrigations</h2>
+
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="planificationForm">
+    <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Secteur</mat-label>
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-select formControlName="sector">
+        <mat-option *ngFor="let sector of sectors" [value]="sector.id">{{ sector.name }}</mat-option>
+      </mat-select>
+      <div *ngIf="planificationForm.get('sector')!.invalid && (planificationForm.get('sector')!.dirty )">
+        <mat-error
+          *ngIf="planificationForm.get('sector')?.errors?.['required']">
+          Ce champ est requis.
+        </mat-error>
+      </div>
+    </mat-form-field>
+
+    <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Date de début</mat-label>
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <input matInput type="date" formControlName="start">
+      <div *ngIf="planificationForm.get('start')!.invalid && (planificationForm.get('start')!.dirty )">
+        <mat-error
+          *ngIf="planificationForm.get('start')?.errors?.['required']">
+          Ce champ est requis.
+        </mat-error>
+      </div>
+    </mat-form-field>
+
+
+
+
+    <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">etat</mat-label>
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <input matInput type="boolean" formControlName="et">
+      <div *ngIf="planificationForm.get('et')!.invalid && (planificationForm.get('et')!.dirty )">
+        <mat-error
+          *ngIf="planificationForm.get('et')?.errors?.['required']">
+          Ce champ est requis.
+        </mat-error>
+      </div>
+    </mat-form-field>
+
+    
+    <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Date de fin</mat-label>
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <input matInput type="date" formControlName="end">
+      <div *ngIf="planificationForm.get('end')!.invalid && (planificationForm.get('end')!.dirty )">
+        <mat-error
+          *ngIf="planificationForm.get('end')?.errors?.['required']">
+          Ce champ est requis.
+        </mat-error>
+      </div>
+    </mat-form-field>
+    
+
+
+    <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">horaire</mat-label>
+    <mat-form-field appearance="outline" class="w-100" color="primary">
+      <input matInput type="number" formControlName="ho">
+      <div *ngIf="planificationForm.get('ho')!.invalid && (planificationForm.get('ho')!.dirty )">
+        <mat-error
+          *ngIf="planificationForm.get('ho')?.errors?.['required']">
+          Ce champ est requis.
+        </mat-error>
+      </div>
+    </mat-form-field>
+
+    
+
+    <mat-dialog-actions>
+      <button mat-flat-button color="primary" type="submit" [disabled]="!planificationForm.valid">Envoyer</button>
+      <button mat-stroked-button color="basic" mat-dialog-close>Fermer</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
