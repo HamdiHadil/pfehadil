@@ -1,15 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Observable, of, switchMap} from "rxjs";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
+import { Injectable } from '@angular/core';
+import { Observable, of, switchMap } from "rxjs";
+import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import firebase from 'firebase/compat';
-import {Farmer} from "../admin/farmer/farmer";
+import { Farmer } from "../admin/farmer/farmer";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user$: Observable<any>;
+  userConnected: any;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
@@ -36,7 +37,7 @@ export class AuthService {
     try {
       if (farmer.email && farmer.password) {
         const credential = await this.afAuth.createUserWithEmailAndPassword(farmer.email, farmer.password);
-        await this.signIn('hadilhamdi@gmail.com', 'aaaaaa')
+        // await this.signIn('hadilhamdi@gmail.com', 'aaaaaa')
         await this.updateUserData(credential.user, farmer); // create user document in Firestore
       }
     } catch (error) {
@@ -69,7 +70,7 @@ export class AuthService {
           farmer: true
         }
       };
-      await userRef.set(data, {merge: true});
+      await userRef.set(data, { merge: true });
     }
   }
 
@@ -80,5 +81,11 @@ export class AuthService {
 
     const userData = await this.afs.doc<any>(`users/${user.uid}`).valueChanges().toPromise();
     return !!userData && userData.roles.admin;
+  }
+  getinfoUser(email: any) {
+
+    return this.afs.collection("users", ref => ref.where('email', '==', email)).valueChanges();
+
+
   }
 }

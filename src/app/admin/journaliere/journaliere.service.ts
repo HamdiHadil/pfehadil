@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+
 import { Journaliere } from './journaliere';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class JournaliereService {
-  constructor(private afs : AngularFirestore) { }
-  create(journaliere : Journaliere) {
+  constructor(private route: ActivatedRoute, private afs: AngularFirestore) { }
+
+  create(journaliere: Journaliere) {
     journaliere.id = this.afs.createId();
-    return this.afs.collection('/journaliers').add(journaliere)
+    return this.afs.collection('/irrigations').add(journaliere)
   }
-  
-  fetchTodaysIrrigationData(): Observable<Journaliere[]> {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); 
-    return this.afs.collection<Journaliere>('planifications', ref =>
-      ref.where('start', '==', today)
-    ).valueChanges();
+
+  fetchAll(): Observable<any[]> {
+    return this.afs.collection("irrigations").valueChanges();
+
   }
-  
- 
+  fetchDataBySecteur(collectionName: string, planification: string): Observable<any[]> {
+    return this.afs.collection(collectionName, ref => ref.where('planificationId', '==', planification)).valueChanges();
+  }
 }

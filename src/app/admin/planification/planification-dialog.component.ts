@@ -1,8 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Sector} from "../sector/sector";
-import {SectorService} from "../sector/sector.service";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Sector } from "../sector/sector";
+import { SectorService } from "../sector/sector.service";
 import { PlanificationService } from './planification.service';
 import { Planification } from './planification';
 
@@ -13,14 +13,15 @@ import { Planification } from './planification';
 export class PlanificationDialogComponent implements OnInit {
   sectors: Sector[] = [];
   planificationForm = this.fb.group({
-    sector: [this.data. planification? this.data.planification.sector : '', [Validators.required,]],
+    name: [this.data.planification ? this.data.planification.name : '', [Validators.required,]],
+    sector: [this.data.planification ? this.data.planification.sector : '', [Validators.required,]],
     start: [this.data.planification ? this.data.planification.start : '', [Validators.required,]],
     end: [this.data.planification ? this.data.planification.end : '', [Validators.required,]],
     ho: [this.data.planification ? this.data.planification.ho : '', [Validators.required,]],
     et: [this.data.planification ? this.data.planification.et : '', [Validators.required,]]
   })
 
-  constructor(private fb: FormBuilder, private planificationService: PlanificationService, public dialogRef: MatDialogRef<PlanificationDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: { planification?: Planification, sectors: Sector[] }, private sectorService: SectorService) {}
+  constructor(private fb: FormBuilder, private planificationService: PlanificationService, public dialogRef: MatDialogRef<PlanificationDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: { planification?: Planification, sectors: Sector[] }, private sectorService: SectorService) { }
 
   ngOnInit(): void {
     this.sectors = this.data.sectors;
@@ -30,6 +31,7 @@ export class PlanificationDialogComponent implements OnInit {
     return {
       ...new Planification(),
       id: this.data.planification ? this.data.planification.id : '',
+      name: this.planificationForm.get(['name'])!.value,
       sector: this.planificationForm.get(['sector'])!.value,
       start: this.planificationForm.get(['start'])!.value,
       end: this.planificationForm.get(['end'])!.value,

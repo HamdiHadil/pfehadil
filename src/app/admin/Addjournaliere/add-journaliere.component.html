@@ -1,0 +1,38 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header class="d-flex justify-content-between align-items-center">
+    <mat-card-title class="m-b-0"> Add irrigation journaliere</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form (ngSubmit)="addJournaliere()" [formGroup]="AddJournaliere">
+      <div class=" text-center">
+        <div class="col-md-10 p-2">
+          <label for="start" class="col-md-4">Start Date</label>
+          <input class="col-md-6" type="date" id="start" name="start" formControlName="start" readonly>
+        </div>
+        <div class="col-md-10 p-2">
+          <label for="ho" class="col-md-4">Horaire</label>
+          <input class="col-md-6" type="text" id="ho" name="ho" formControlName="ho" required>
+        </div>
+        <div class="col-md-10 p-2">
+          <label for="end" class="col-md-4">End Date</label>
+          <input class="col-md-6" type="date" id="end" name="end" formControlName="end" readonly>
+        </div>
+        <div class="col-md-10 p-2">
+          <label for="sector" class="col-md-4">Planification</label>
+          <select class="col-md-6" type="text" id="planificationId" name="planificationId"
+            formControlName="planificationId" required>
+            <option *ngFor="let item of planifications; index as i" [value]="item._id">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
+
+        <button class="col-md-4 mt-2" mat-flat-button color="primary" type="submit" [disabled]="!AddJournaliere.valid">
+          Ajouter</button>
+      </div>
+    </form>
+
+
+
+  </mat-card-content>
+</mat-card>
