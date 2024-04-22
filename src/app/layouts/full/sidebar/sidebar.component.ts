@@ -13,14 +13,22 @@ export class SidebarComponent implements OnInit {
 
   constructor(public navService: NavService, private authService: AuthService) { }
 
-  async ngOnInit(): Promise<void> {
-    let isadmin = false // await this.authService.isAdmin();
+  async ngOnInit() {
+   // let resultaapi = await this.authService.isAdmin();
+   // console.log("result api", resultaapi)
+    let localStoreg = localStorage.getItem('role')
+    if (localStoreg && localStoreg !== 'admin') {
+      console.log(localStoreg)
+
+      this.navItems = navItemsFarmer;
+
+    }
     //console.log(isadmin);
     console.log("user conencted", this.authService.userConnected);
 
-    if (!isadmin) {
-      this.navItems = navItemsFarmer
-    }
-
+    /* if (!isadmin) {
+       this.navItems = navItemsFarmer
+     }
+ */
   }
 }

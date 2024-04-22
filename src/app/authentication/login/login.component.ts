@@ -25,11 +25,20 @@ export class AppSideLoginComponent {
           // Handle successful login
           this.auth.authState.subscribe(user => {
             if (user) {
-              //  this.authService.getinfoUser(user.email).subscribe(res => {
-              localStorage.setItem("uiiduser", user.uid);
-              this.authService.userConnected = user;
-              this.router.navigate(['/admin/farmer']);
-              //  })
+              this.authService.getinfoUser(user.email).subscribe((res: any) => {
+                let role = "admin"
+                console.log(res)
+                console.log(res[0])
+
+                if (res[0] && res[0].roles && res[0].roles.farmer)
+                  role = "farmer"
+
+                localStorage.setItem("uiiduser", user.uid);
+                localStorage.setItem("role", role);
+
+                this.authService.userConnected = user;
+                this.router.navigate(['/admin/farmer']);
+              })
 
             }
           })
